@@ -18,9 +18,6 @@ function User() {
             setUserQuizz(data);
         }
 
-
-
-
     useEffect(() => {
         if(cookies.login != null){
             getUserQuizz();
@@ -28,7 +25,6 @@ function User() {
 
 
     }, []);
-
 
     let jsxUserQuizz = userQuizz.map(p=>
 
