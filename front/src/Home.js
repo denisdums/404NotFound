@@ -8,13 +8,31 @@ function Home() {
     const [quizzes, setQuizzes] = useState([]);
     const [displayModal, setDisplayModal] = useState(false);
 
+
+
+
     async function getQuizzes(){
         const data = (await axios.get('http://localhost:8000/' + 'quizz')).data;
         setQuizzes(data);
     }
     useEffect(() => {
         getQuizzes();
+
     }, []);
+
+    async function filterQuizz(e){
+
+        e.preventDefault();
+        changeDisplayModal(e);
+        let filtreRecup = e.target.filter.value;
+        console.log(filtreRecup);
+        const data = (await axios.get('http://localhost:8000/recherche/' + filtreRecup)).data;
+        setQuizzes(data);
+
+
+
+
+    }
 
     if(quizzes.length==0)
         return (
@@ -25,10 +43,17 @@ function Home() {
 
 
     function changeDisplayModal(e) {
-        console.log('cloque');
+        const div = document.querySelector('.modal');
+
         e.preventDefault();
-        if(displayModal == true) setDisplayModal(false);
-        else setDisplayModal(true);
+        if(displayModal){
+            setDisplayModal(false);
+            div.classList.toggle("active");
+        }
+        else{
+            setDisplayModal(true);
+            div.classList.toggle("active");
+        }
 
 
     }
@@ -45,14 +70,13 @@ function Home() {
                 </div>
                 {quizzes.filter( (q,i) => i !== 0).map(p =>
                     <QuizzThumbnail
-
                         name = {p.name}
                         icon = {p.picture_url}
                         id = {p.id}
                     />)}
             </div>
 
-            <Modal display={displayModal} changeDisplayModal={changeDisplayModal}/>
+            <Modal filterQuizz={filterQuizz} changeDisplayModal={changeDisplayModal}/>
         </div>
 
     );
