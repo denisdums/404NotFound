@@ -16,7 +16,8 @@ CREATE TABLE quizzes (
    id INTEGER NOT NULL PRIMARY KEY,
    name TEXT,
    picture_url TEXT,
-   author TEXT
+   author TEXT,
+   keywords TEXT
 );
 
 CREATE TABLE questions (
@@ -35,11 +36,11 @@ CREATE TABLE answers (
    questions_id INTEGER REFERENCES questions(id)
 );
 
-INSERT INTO quizzes (name,picture_url,author)
+INSERT INTO quizzes (name,picture_url,author,keywords)
 VALUES
-   ("Computing", "computing.png", "admin"),
-   ("Youtube", "youtube.png", "admin"),
-   ("Emojis", "emojis.png", "admin");
+   ("Computing", "computing.png", "admin","ordinateurcomputer"),
+   ("Youtube", "youtube.png", "admin","youtubewebvideo"),
+   ("Emojis", "emojis.png", "admin","emoji");
 
 INSERT INTO questions (sentence,video_url, score, quizzes_id)
 VALUES

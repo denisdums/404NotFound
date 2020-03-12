@@ -25,19 +25,30 @@ function Home() {
         e.preventDefault();
         changeDisplayModal(e);
         let filtreRecup = e.target.filter.value;
-        console.log(filtreRecup);
+
         const data = (await axios.get('http://localhost:8000/recherche/' + filtreRecup)).data;
-        setQuizzes(data);
+
+        if (data.length != 0){
+
+            setQuizzes(data);
+        }else{
+            getQuizzes();
+        }
+
+
+
 
 
 
 
     }
 
-    if(quizzes.length==0)
+    if(quizzes.length==0){
         return (
             <div>Load data</div>
         );
+
+    }
     let q=quizzes[0];
 
 
