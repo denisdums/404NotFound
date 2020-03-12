@@ -106,7 +106,7 @@ router
                         res.status(403).end();
                     } else {
                         console.log("ok pour création : ", req.body.username);
-                        db.run('insert into user(username,password) values(?,?)', [req.body.username, req.body.password],
+                        db.run('insert into user(username,password,score) values(?,?,?)', [req.body.username, req.body.password,0],
                             (err) => {
                                 if (err) {
                                     console.log("err :: ", err);
