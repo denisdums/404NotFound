@@ -8,7 +8,6 @@ function User() {
         const [cookies, removeCookie] = useCookies(['login']);
         const [userQuizz,setUserQuizz] = useState([]);
         const msg = cookies.login && cookies.login.username ? "connection OK" : "no connection";
-        console.log(cookies.login.username);
     function disconnect() {
         removeCookie('login');
     }
