@@ -129,17 +129,22 @@ body {
 
 
 
+.modal.active{
+  top: 371px;
+
+}
 .modal{
-  width: 90%;
-  padding-top: 100%;
+  top: -100vh;
+  width: 100%;
+  height: 91vh;
   background: #eee;
   position: fixed;
-  top: 350px;
+
   left: 50%;
   transform: translate(-50%,-50%);
-  border-radius: 10px;
 
-
+  transition: all ease 0.5s;
+  background: linear-gradient(to right, #FF00F1 0%, #6100FF 100%);
 }
 
 .modal-content{
@@ -157,12 +162,17 @@ body {
 
 .modal-content > form{
   width: 70%;
-  height: 70%;
+  height: 40%;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
 
+}
+
+.modal .btn_submit{
+  color: #FF00F1;
+  background: white;
 }
 
 .champs_recherche{
@@ -171,7 +181,8 @@ body {
   outline: none;
   background: inherit;
   border: none;
-  border-bottom: #FF00F1 2px solid;
+  border-bottom: white 2px solid;
+  color: white;
 
 }
 
@@ -440,8 +451,14 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   position: relative;
+
 }
 
+.LaQuestion > video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .LesReponses{
   width: 80%;
   display: grid;

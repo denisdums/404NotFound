@@ -3,7 +3,8 @@ import React from "react";
 function QuestionVideo(props){
     return (
 
-            <video src={props.url}></video>
+
+        <video src={props.url} controls loop="true" autoPlay/>
 
     );
 }
