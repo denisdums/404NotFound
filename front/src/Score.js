@@ -5,30 +5,33 @@ import axios from "axios";
 function Score() {
     const [cookies, removeCookie] = useCookies(['login']);
     const msg = cookies.login && cookies.login.username ? "connection OK" : "no connection";
-    let test = cookies.login.username;
+    let username = cookies.login && cookies.login.username ? cookies.login.username : null;
 
     const [user, setUser] = useState([]);
 
 
 
     async function getUser(){
-        const data = (await axios.get('http://localhost:8000/user/' + test )).data;
+        const data = (await axios.get('http://localhost:8000/user/' + username )).data;
         setUser(data);
     }
     useEffect(() => {
-        getUser();
+        if(username!= null)
+            getUser();
     }, []);
 
-    if (user.length==0){
-        console.log("ça charge")
-    }
-    else {
-        console.log(user)
-    }
 
-    if(user.length == 0 )
+
+    if(username != null && user.length == 0 )
         return (<div>Chargement</div>);
 
+    let userScore = null;
+    if(username != null)
+        userScore =  <div id="score_local">
+        <div>{user[0].username}</div>
+        <div>{user[0].score}</div>
+        <div>{user[0].id}</div>
+    </div>;
 
 
     return (
@@ -81,11 +84,7 @@ function Score() {
                     <div className="score_item_num">9</div>
                 </div>
             </div>
-            <div id="score_local">
-                <div>{user[0].username}</div>
-                <div>{user[0].score}</div>
-                <div>{user[0].id}</div>
-            </div>
+            {userScore}
         </div>
     );
 }
