@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import {useCookies, withCookies} from 'react-cookie';
 import axios from "axios";
+import {Redirect} from 'react-router-dom';
 
 
 function Add(props) {
         const [cookies, removeCookie] = useCookies(['login']);
+        const [redirect, setRedirect] = useState(false);
         const msg = cookies.login && cookies.login.username ? "connection OK" : "no connection";
 
         async function newQuizz(e) {
@@ -18,9 +20,11 @@ function Add(props) {
         let p = {
             name: nomQuizz.name,
             nom_fichier: selectedFile.name,
+            author : cookies.login.username,
         };
 
-        axios.post('http://localhost:8000/quizzadd', p);
+        axios.post('http://localhost:8000/quizzadd', p)
+            props.history.push("/user");
 
         }
 

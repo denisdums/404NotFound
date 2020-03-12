@@ -16,7 +16,7 @@ CREATE TABLE quizzes (
    id INTEGER NOT NULL PRIMARY KEY,
    name TEXT,
    picture_url TEXT,
-   keywords TEXT
+   author TEXT
 );
 
 CREATE TABLE questions (
@@ -35,31 +35,35 @@ CREATE TABLE answers (
    questions_id INTEGER REFERENCES questions(id)
 );
 
-INSERT INTO quizzes (name,picture_url,keywords)
+INSERT INTO quizzes (name,picture_url,author)
 VALUES
-   ("Computing", "computing.png", "denis"),
-   ("Youtube", "computing.png", "denis");
+   ("Computing", "computing.png", "admin"),
+   ("Youtube", "youtube.png", "admin"),
+   ("Emojis", "emojis.png", "admin");
 
-INSERT INTO questions (sentence, score, quizzes_id)
+INSERT INTO questions (sentence,video_url, score, quizzes_id)
 VALUES
-   ("What is the web ?", 3, 1),
-   ("Which of these is not a web browser ?", 3, 1),
-   ("What is the best way to send a file to a japanese friend ?", 1, 1),
-   ("What is the hidden side of the internet called ?", 1, 1),
-   ("What is a URL ?", 1, 1),
+   ("What is the web ?",null, 3, 1),
+   ("Which of these is not a web browser ?",null, 3, 1),
+   ("What is the best way to send a file to a japanese friend ?",null, 1, 1),
+   ("What is the hidden side of the internet called ?",null, 1, 1),
+   ("What is a URL ?",null, 1, 1),
 
-   ("Who is the French youtuber created the video serie the worst amazon objects ?", 3, 2),
-   ("Which Swiss videographer is making videos in strange places ?", 1, 2),
-   ("Which French youtuber living in Japan has a Japanese grocery store online ?", 1, 2),
-   ("From which youtuber is the quote 'I code with my ass' ?", 1, 2),
-   ("Who pretended to be a speed camera in one of his videos ?", 1, 2);
+   (" ","video.mp4", 3, 2),
+   ("Which Swiss videographer is making videos in strange places ?",null, 1, 2),
+   ("Which French youtuber living in Japan has a Japanese grocery store online ?",null, 1, 2),
+   ("From which youtuber is the quote 'I code with my ass' ?",null, 1, 2),
+   ("Who pretended to be a speed camera in one of his videos ?",null, 1, 2),
+
+   ("What is the less used emoji (12 march 2020)",null, 3, 3),
+   ("What is the most used emoji (12 march 2020)",null, 1, 3);
 
 INSERT INTO answers (sentence, picture_url, solution, questions_id)
 VALUES
    ("Is just letters of 'Will Enjoy the Battle'", NULL, 0, 1),
    ("Abbreviation of the World Wide Web", NULL, 1, 1),
    ("Letters of 'Wanna Eat Browser'", NULL, 0, 1),
-   ("Abbreviation of the Word Wild Weeb", NULL, 0, 1),
+   ("Abbreviation of the Word Wild Web", NULL, 0, 1),
 
    ("Firefox", NULL, 0, 2),
    ("Chrome", NULL, 0, 2),
@@ -81,10 +85,10 @@ VALUES
     ("A email spam", NULL, 0, 5),
     ("Some people who using the internet", NULL, 0, 5),
 
-    ("VodK", NULL, 0, 6),
-    ("Amixem", NULL, 1, 6),
-    ("Norman", NULL, 0, 6),
-    ("Mastu", NULL, 0, 6),
+    ("Mais voila, espece de ****", NULL, 0, 6),
+    ("Mais voila, mais c'était sur en fait!", NULL, 1, 6),
+    ("Mais voila, je suis plus fort que lui !", NULL, 0, 6),
+    ("The answer D", NULL, 0, 6),
 
     ("Squeezie", NULL, 0, 7),
     ("Pewdipie", NULL, 0, 7),
@@ -104,4 +108,14 @@ VALUES
     ("CyrilMp4", NULL, 0, 10),
     ("Cyprien", NULL, 0, 10),
     ("Rémi Gaillard", NULL, 1, 10),
-    ("Neoxi", NULL, 0, 10);
+    ("Neoxi", NULL, 0, 10),
+
+     (null, "coeur.png", 0, 11),
+     (null, "ecole.png", 0, 11),
+     (null, "symbols.png", 1, 11),
+     (null, "abcd.png", 0, 11),
+
+     (null, "pleurejoie.png", 1, 12),
+     (null, "pleure.png", 0, 12),
+     (null, "pouce.png", 0, 12),
+     (null, "coeur.png", 0, 12);

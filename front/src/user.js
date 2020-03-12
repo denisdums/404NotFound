@@ -1,14 +1,35 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useCookies, withCookies} from 'react-cookie';
+import axios from "axios";
+import UserQuizz from "./UserQuizz";
 
 
 function User() {
         const [cookies, removeCookie] = useCookies(['login']);
+        const [userQuizz,setUserQuizz] = useState([]);
         const msg = cookies.login && cookies.login.username ? "connection OK" : "no connection";
-
+        console.log(cookies.login.username);
     function disconnect() {
         removeCookie('login');
     }
+
+    async function getUserQuizz(){
+        const data = (await axios.get('http://localhost:8000/quizzuser/' + cookies.login.username  )).data;
+        setUserQuizz(data);
+    }
+
+    useEffect(() => {
+        getUserQuizz();
+
+    }, []);
+
+    let jsxUserQuizz = userQuizz.map(p=>
+
+            <UserQuizz
+                nameQuizz = {p.name}
+                author = {p.author}
+                picture = {p.picture_url}
+            />);
 
     if (cookies.login && cookies.login.username) {
 
@@ -32,6 +53,8 @@ function User() {
                     <span id="titre_profil">MY QUIZZ</span>
                     <div id="filters"><div id="disconnect" onClick={disconnect}></div></div>
                     <div id="addquiz"><a id="btnquizz" href="add"></a></div>
+                    <div id="container_quizz_user">{jsxUserQuizz}</div>
+
 
                 </div>
 

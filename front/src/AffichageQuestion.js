@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import AffichageReponse from "./AffichageReponses";
+import Question from "./Questions";
+import QuestionVideo from "./QuestionsVideo";
 
 
 
@@ -68,14 +70,20 @@ export default function AffichageQuestion(props) {
 
         id = -1;
     }
+    let jsxQuestion;
+    if(props.video_url != null){
+        jsxQuestion =  <QuestionVideo url = {props.video_url}/>
+    }
+    else{
+        jsxQuestion =  <Question question = {props.sentence}/>
+    }
 
 
     return (
         <div className="AffichageQuestion">
             <div className="LaQuestion">
                 <div className="AffichagePoints">{props.score} pts</div>
-                <p>{props.sentence}</p>
-                <p>{props.video_url}</p>
+                {jsxQuestion}
             </div>
 
 

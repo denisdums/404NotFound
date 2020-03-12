@@ -81,6 +81,17 @@ router
             );
         })
 
+    .get('/quizzuser/:username',
+        (req, res) => {
+            db.all(
+                "select * from quizzes WHERE author = ? ",
+                [req.params.username],
+                (err, row) => {
+                    res.json(row)
+                }
+            );
+        })
+
     .patch('/scoreAdd/:username/:score',
         (req, res) => {
             db.run("update user set score=score+? where username=?",[req.params.score,req.params.username],
@@ -94,7 +105,7 @@ router
 
     .post('/quizzadd', (req, res) => {
             const p = req.body;
-            db.run("insert into quizzes(name,picture_url) values(?,?)",[p.name,p.nom_fichier]);
+            db.run("insert into quizzes(name,picture_url,author) values(?,?,?)",[p.name,p.nom_fichier,p.author]);
             res.redirect(303, '/user');
         })
 

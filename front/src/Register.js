@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import {Route} from 'react-router-dom';
+import {Redirect, Route} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import {useCookies, withCookies} from 'react-cookie';
 
@@ -9,14 +9,14 @@ function FormLogin(props) {
         <div id="container">
             <div id="logo"></div>
             <div id="login">
-                <form onSubmit={props.onSignup} className="formregister">
+                <form onSubmit={props.onSignup } className="formregister">
                     <div className="txtb">
                         <input type="text" className="" name="username" required="" ref={props.usernameRef}/>
                     </div>
                     <div className="txtb">
                         <input type="password" className="" name="password" required="" ref={props.passwordRef}/>
                     </div>
-                    <input type="submit" value="Register" className="btn_submit"/>
+                    <input type="submit" value="Register"  className="btn_submit"/>
                 </form>
             </div>
         </div>
@@ -35,15 +35,19 @@ function Login() {
     }
 
     async function onSignup() {
+
         const user = {
             username: usernameRef.current.value,
             password: passwordRef.current.value
         };
         try {
             const p = (await axios.post('http://localhost:8000/signup', user));
+
+
             if (p.status === 201) {
                 user.token = p.data.token;
                 setCookie('login', user, '/');
+
             }
         } catch (err) {
             console.error(err)
@@ -60,6 +64,7 @@ function Login() {
         console.log(user);
         try {
             const p = (await axios.post('http://localhost:8000/signin', user));
+
             if (p.status === 200) {
                 user.token = p.data.token;
                 setCookie('login', user, '/');
@@ -71,7 +76,7 @@ function Login() {
     }
 
     if (cookies.login && cookies.login.username) {
-        return <button id="disconnect" onClick={disconnect}>disconnect</button>;
+
     }
     return <FormLogin onSignin={onSignin} onSignup={onSignup} usernameRef={usernameRef} passwordRef={passwordRef}/>
 }

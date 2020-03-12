@@ -42,6 +42,7 @@ function Login() {
         };
         try {
             const p = (await axios.post('http://localhost:8000/signup', user));
+
             if (p.status === 200) {
                 user.token = p.data.token;
                 setCookie('login', user, '/');
@@ -49,6 +50,7 @@ function Login() {
         } catch (err) {
             console.error(err)
         }
+
     }
 
     async function onSignin(e) {
@@ -72,7 +74,7 @@ function Login() {
     }
 
     if (cookies.login && cookies.login.username) {
-        return <Redirect to='/' />;
+        return <Redirect to='/'/>;
     }
     return <FormLogin onSignin={onSignin} onSignup={onSignup} usernameRef={usernameRef} passwordRef={passwordRef}/>
 }
