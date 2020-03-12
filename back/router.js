@@ -60,6 +60,16 @@ router
         );
     })
 
+    .get('/user', (req, res) => {
+
+        db.all(
+            "select * from user ORDER BY score desc",
+            (err, row) => {
+                res.json(row)
+            }
+        );
+    })
+
     .get('/recherche/:searchtxt',
         (req, res) => {
             db.all(
@@ -69,6 +79,15 @@ router
                     res.json(row)
                 }
             );
+        })
+
+    .patch('/scoreAdd/:username/:score',
+        (req, res) => {
+            db.run("update user set score=score+? where username=?",[req.params.score,req.params.username],
+                (err, row) => {
+                res.json(row)
+            });
+            res.status(200).json(req.body);
         })
 
 
