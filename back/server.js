@@ -5,6 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require("body-parser");
 const app = express();
+const fileUpload = require('express-fileupload');
 
 const port = process.env.PORT || 8000;
 
@@ -15,6 +16,10 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
+}));
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp'
 }));
 app.use(connectionRouter);
 app.use(router); // Requests processing will be defined in the file router

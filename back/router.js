@@ -62,6 +62,24 @@ router
 
 
 
+    .post('/quizzadd', (req, res) => {
+            const p = req.body;
+            db.run("insert into quizzes(name,picture_url) values(?,?)",[p.name,p.nom_fichier]);
+            res.redirect(303, '/user');
+        })
+
+    .post('/upload', (req, res) => {
+        req.files.file.mv(__dirname + '/public/pictures/' + req.files.file.name,
+            (err) => {
+                if (err)
+                    return res.status(500).send(err);
+                res.json({file: req.files.file.name});
+            }
+        );
+    })
+
+
+
     .use((req, res) => {
         res.status(400);
         res.json({

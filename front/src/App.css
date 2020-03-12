@@ -199,7 +199,6 @@ body {
   flex-basis: 30%;
   height: 20vh;
   border-radius:10px;
-  background: #C4C4C4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,7 +209,6 @@ body {
 
 .lien_quizz{
   height: 100%;
-  background-color: #6100FF;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -693,3 +691,82 @@ body {
 
 
 /****       FIN PROFIL        ****/
+
+
+/****       Add Quizz       ****/
+
+.input_radio{
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  margin: 10px;
+  width: 20%;
+  position: relative;
+  font-size: 22px;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background: linear-gradient(90deg, #FF00F1 0%, #6100FF 100%);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+#label_radio{
+  width:40%;
+}
+
+.txtfile{
+  width: 70vw;
+  position: relative;
+  margin: 30px auto;
+}

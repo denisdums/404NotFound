@@ -1,14 +1,29 @@
 import React from "react";
 import {useCookies, withCookies} from 'react-cookie';
+import axios from "axios";
 
 
-function Add() {
+function Add(props) {
         const [cookies, removeCookie] = useCookies(['login']);
         const msg = cookies.login && cookies.login.username ? "connection OK" : "no connection";
 
-    function disconnect() {
-        removeCookie('login');
-    }
+        async function newQuizz(e) {
+        e.preventDefault();
+        let nomQuizz = {name:e.target.quizz_name.value};
+
+        const selectedFile = e.target.quizz_image.files[0];
+        const data = new FormData();
+        data.append('file', selectedFile, selectedFile.name);
+        axios.post('http://localhost:8000/upload', data);
+        let p = {
+            name: nomQuizz.name,
+            nom_fichier: selectedFile.name,
+        };
+
+        axios.post('http://localhost:8000/quizzadd', p);
+
+        }
+
 
     if (cookies.login && cookies.login.username) {
 
@@ -16,8 +31,20 @@ function Add() {
 
             <div id="container">
                 <div id="logo"></div>
+                <div id="login">
+                    <form onSubmit={e=> newQuizz(e)} className="formregister">
+                        <div className="txtb">
+                            <input type="text" className="" name="quizz_name" placeholder="Quizz Name"/>
+                        </div>
+                        <div className="txtfile">
+                            <input type="file" className="" name="quizz_image" placeholder="Quizz Image"/>
+                        </div>
 
 
+
+                        <input type="submit" value="Add Quizz" className="btn_submit"/>
+                    </form>
+                </div>
             </div>
         );
 
