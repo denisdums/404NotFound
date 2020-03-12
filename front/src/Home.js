@@ -2,9 +2,11 @@ import React, {useEffect, useState} from "react";
 import QuizzThumbnail from "./QuizzThumbnail";
 import axios from "axios";
 import {HTTP_SERVER_PORT_PICTURES} from "./constants";
+import Modal from "./Modal";
 
 function Home() {
     const [quizzes, setQuizzes] = useState([]);
+    const [displayModal, setDisplayModal] = useState(false);
 
     async function getQuizzes(){
         const data = (await axios.get('http://localhost:8000/' + 'quizz')).data;
@@ -20,10 +22,20 @@ function Home() {
         );
     let q=quizzes[0];
 
+
+
+    function changeDisplayModal(e) {
+        console.log('cloque');
+        e.preventDefault();
+        if(displayModal == true) setDisplayModal(false);
+        else setDisplayModal(true);
+
+
+    }
     return (
         <div id="container">
             <div id="logo"></div>
-            <div id="filters"><div id="btn_filters"></div></div>
+            <div id="filters" onClick={e => changeDisplayModal(e)}><div id="btn_filters"></div></div>
             <div id="container_quizz">
                 <div id="first_quizz">
                     <a className="lien_quizz" href={'quizz/'+ q.id}>
@@ -39,6 +51,8 @@ function Home() {
                         id = {p.id}
                     />)}
             </div>
+
+            <Modal display={displayModal} changeDisplayModal={changeDisplayModal}/>
         </div>
 
     );
