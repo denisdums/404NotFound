@@ -8,20 +8,27 @@ function User() {
         const [cookies, removeCookie] = useCookies(['login']);
         const [userQuizz,setUserQuizz] = useState([]);
         const msg = cookies.login && cookies.login.username ? "connection OK" : "no connection";
-        console.log(cookies.login.username);
+
     function disconnect() {
         removeCookie('login');
     }
 
-    async function getUserQuizz(){
-        const data = (await axios.get('http://localhost:8000/quizzuser/' + cookies.login.username  )).data;
-        setUserQuizz(data);
-    }
+        async function getUserQuizz() {
+            const data = (await axios.get('http://localhost:8000/quizzuser/' + cookies.login.username)).data;
+            setUserQuizz(data);
+        }
+
+
+
 
     useEffect(() => {
-        getUserQuizz();
+        if(cookies.login != null){
+            getUserQuizz();
+        }
+
 
     }, []);
+
 
     let jsxUserQuizz = userQuizz.map(p=>
 
